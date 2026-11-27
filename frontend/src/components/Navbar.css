@@ -1,0 +1,370 @@
+/* Navbar.css
+   Styles for the SkyTrail Travels navigation bar.
+   Layout: desktop (1024px and up) = horizontal menu,
+           tablet/mobile (below 1024px) = hamburger dropdown. */
+
+/* ---------- Theme colours (change them here to restyle the navbar) ---------- */
+.navbar {
+  --nav-blue: #0369a1;        /* main brand blue */
+  --nav-blue-dark: #075985;   /* darker blue for hover */
+  --nav-sky: #e0f2fe;         /* light sky blue for soft backgrounds */
+  --nav-tropical: #14b8a6;    /* tropical teal accent */
+  --nav-text: #1e293b;        /* dark text */
+  --nav-muted: #475569;       /* link text */
+  --nav-border: #e2e8f0;      /* light border */
+  --nav-height: 72px;
+}
+
+/* ---------- Sticky white bar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: 0 2px 12px rgba(3, 105, 161, 0.08);
+  font-family: "Poppins", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.navbar__container {
+  max-width: 1280px;
+  height: var(--nav-height);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* ---------- Logo ---------- */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.navbar__logo-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--nav-blue), var(--nav-tropical));
+  transition: transform 0.3s ease;
+}
+
+.navbar__logo-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Small playful tilt when hovering the logo */
+.navbar__logo:hover .navbar__logo-icon {
+  transform: rotate(-8deg) scale(1.05);
+}
+
+.navbar__logo-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--nav-blue);
+  white-space: nowrap;
+}
+
+.navbar__logo-accent {
+  color: var(--nav-tropical);
+}
+
+/* ---------- Menu wrapper (links + buttons) ---------- */
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ---------- Navigation links ---------- */
+.navbar__link {
+  position: relative;
+  display: block;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--nav-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+/* Animated underline: hidden by default, grows from the centre on hover */
+.navbar__link::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--nav-blue), var(--nav-tropical));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.navbar__link:hover {
+  color: var(--nav-blue);
+}
+
+.navbar__link:hover::after,
+.navbar__link--active::after {
+  transform: scaleX(1);
+}
+
+/* Current page link */
+.navbar__link--active {
+  color: var(--nav-blue);
+  font-weight: 600;
+}
+
+/* ---------- Login / Register buttons ---------- */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar__btn {
+  display: inline-block;
+  padding: 9px 22px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  white-space: nowrap;
+  transition: background-color 0.25s ease, color 0.25s ease,
+    box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.navbar__btn--outline {
+  color: var(--nav-blue);
+  border-color: var(--nav-blue);
+  background-color: transparent;
+}
+
+.navbar__btn--outline:hover {
+  background-color: var(--nav-sky);
+}
+
+.navbar__btn--primary {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--nav-blue), var(--nav-tropical));
+  box-shadow: 0 4px 12px rgba(3, 105, 161, 0.25);
+}
+
+.navbar__btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(3, 105, 161, 0.3);
+}
+
+/* ---------- Keyboard focus outline (accessibility) ---------- */
+.navbar__logo:focus-visible,
+.navbar__link:focus-visible,
+.navbar__btn:focus-visible,
+.navbar__toggle:focus-visible {
+  outline: 2px solid var(--nav-tropical);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ---------- Hamburger button (hidden on desktop) ---------- */
+.navbar__toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: background-color 0.25s ease;
+}
+
+.navbar__toggle:hover {
+  background-color: var(--nav-sky);
+}
+
+.navbar__toggle-bar {
+  width: 24px;
+  height: 2.5px;
+  border-radius: 2px;
+  background-color: var(--nav-blue);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* When the menu is open, the three bars turn into an "X" */
+.navbar__toggle--open .navbar__toggle-bar:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.navbar__toggle--open .navbar__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar__toggle--open .navbar__toggle-bar:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ---------- Slightly tighter spacing on smaller desktops ---------- */
+@media (max-width: 1200px) {
+  .navbar__menu {
+    gap: 16px;
+  }
+
+  .navbar__link {
+    padding: 8px 9px;
+    font-size: 0.9rem;
+  }
+
+  .navbar__link::after {
+    left: 9px;
+    right: 9px;
+  }
+
+  .navbar__btn {
+    padding: 8px 16px;
+  }
+}
+
+/* ---------- Tablet and mobile: hamburger dropdown menu ---------- */
+@media (max-width: 1023px) {
+  .navbar__toggle {
+    display: flex;
+  }
+
+  /* The menu becomes a panel that drops down below the navbar */
+  .navbar__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+
+    /* Closed state: collapsed and invisible */
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease,
+      visibility 0.35s ease, padding 0.35s ease;
+  }
+
+  /* Open state: added from Navbar.jsx when isMenuOpen is true */
+  .navbar__menu--open {
+    max-height: calc(100vh - var(--nav-height));
+    padding: 12px 24px 24px;
+    opacity: 1;
+    visibility: visible;
+    overflow-y: auto;
+  }
+
+  .navbar__links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .navbar__link {
+    padding: 12px 14px;
+    font-size: 1rem;
+    border-radius: 10px;
+    transition: color 0.25s ease, background-color 0.25s ease;
+  }
+
+  /* No underline on mobile; use a soft background highlight instead */
+  .navbar__link::after {
+    display: none;
+  }
+
+  .navbar__link:hover,
+  .navbar__link--active {
+    background-color: var(--nav-sky);
+  }
+
+  .navbar__actions {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--nav-border);
+  }
+
+  /* Buttons share the row equally */
+  .navbar__btn {
+    flex: 1;
+    padding: 11px 16px;
+  }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 480px) {
+  .navbar {
+    --nav-height: 64px;
+  }
+
+  .navbar__container {
+    padding: 0 16px;
+  }
+
+  .navbar__menu {
+    padding: 0 16px;
+  }
+
+  .navbar__menu--open {
+    padding: 8px 16px 20px;
+  }
+
+  .navbar__logo-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .navbar__logo-text {
+    font-size: 1.15rem;
+  }
+
+  /* Stack Login and Register on very narrow screens */
+  .navbar__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+/* ---------- Respect users who prefer reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .navbar *,
+  .navbar *::after {
+    transition: none !important;
+  }
+}
